@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогностический калькулятор ТИПП</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1>ТИПП Калькулятор</h1>
+                <ul>
+                    <li><a href="#calculator">Калькулятор</a></li>
+                    <li><a href="#about">О проекте</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="calculator" class="calculator-section">
+            <div class="container">
+                <div class="calculator-wrapper">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="formation">Формирование ТИПП</button>
+                        <button class="tab-btn" data-tab="progression">Прогрессирование ТИПП</button>
+                    </div>
+
+                    <div id="formation" class="tab-content active">
+                        <h2>Прогноз формирования ТИПП у детей с ПМР</h2>
+                        <form id="formation-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="il6">ИЛ-6 (пг/мл/24 ч):</label>
+                                    <input type="number" id="il6" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tnfa">ФНО-α (пг/мл/24 ч):</label>
+                                    <input type="number" id="tnfa" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vd">Vd (мм/с):</label>
+                                    <input type="number" id="vd" step="0.01" required>
+                                </div>
+                            </div>
+                            <button type="submit">Рассчитать</button>
+                        </form>
+                    </div>
+
+                    <div id="progression" class="tab-content">
+                        <h2>Прогноз прогрессирования ТИПП у детей с РН</h2>
+                        <form id="progression-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="il1">ИЛ-1 (пг/мл/24 ч):</label>
+                                    <input type="number" id="il1" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="il10">ИЛ-10 (пг/мл/24 ч):</label>
+                                    <input type="number" id="il10" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="albumin">Альбуминурия/протеинурия (мг/г/24 ч):</label>
+                                    <input type="number" id="albumin" step="0.01" required>
+                                </div>
+                            </div>
+                            <button type="submit">Рассчитать</button>
+                        </form>
+                    </div>
+
+                    <div id="result" class="result-section" style="display: none;">
+                        <h3>Результат</h3>
+                        <div id="result-text"></div>
+                        <div class="chart-container">
+                            <canvas id="result-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="additional-params">
+                        <h3>Дополнительные параметры</h3>
+                        <form id="additional-params-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="il8">ИЛ-8 (пг/мл/24 ч):</label>
+                                    <input type="number" id="il8" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tgfb">ТФР-β (пг/мл/24 ч):</label>
+                                    <input type="number" id="tgfb" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vs">Vs (мм/с):</label>
+                                    <input type="number" id="vs" step="0.01">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="gfr">СКФ (мл/мин/1.73 м2):</label>
+                                    <input type="number" id="gfr" step="0.1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sad">Среднее САД (мм рт.ст.):</label>
+                                    <input type="number" id="sad" step="1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dad">Среднее ДАД (мм рт.ст.):</label>
+                                    <input type="number" id="dad" step="1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pmr">Степень ПМР:</label>
+                                    <select id="pmr">
+                                        <option value="1">I</option>
+                                        <option value="2">II</option>
+                                        <option value="3">III</option>
+                                        <option value="4">IV</option>
+                                        <option value="5">V</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rn">Стадия РН:</label>
+                                    <select id="rn">
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit">Обновить данные</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>О проекте</h2>
+                <p>Этот калькулятор разработан на основе научного исследования по изучению закономерностей формирования и прогрессирования тубуло-интерстициального поражения почек у детей.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Прогностический калькулятор ТИПП. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
